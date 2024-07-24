@@ -1,4 +1,4 @@
-# Cookie Utilities Library
+# Cookies
 
 A collection of utilities for handling cookies in JavaScript.
 
