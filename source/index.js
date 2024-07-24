@@ -34,35 +34,46 @@ export var parseCookie = (cookie) => {
 /**
  * Reads cookies from a cookie string using a provided list of keys.
  *
- * @param {string} key
+ * @param {string | string[]} keys
  * @param {string} cookie
+ *
+ * @returns {string | string[]}
  *
  * @example
  * ```
  * let  cookie = 'name=John; age=30; role=admin',
- *      cookies = readCookie('age', cookie); // => '30'
+ *      cookies1 = readCookie('age', cookie); // => '30'
+ *      cookies2 = readCookie(['age', 'name'], cookie); // => ['30', 'John']
  * ```
  */
-export var readCookie = (key, cookie) => readCookies([key], cookie)[0]
-
-/**
- * Reads cookies from a cookie string using a provided list of keys.
- *
- * @param {string[]} keys
- * @param {string} cookie
- *
- * @example
- * ```
- * let  cookie = 'name=John; age=30; role=admin',
- *      cookies = readCookies(['age', 'role'], cookie); // => ['30', 'admin']
- * ```
- */
-export var readCookies = (keys, cookie) => {
+export var readCookie = (keys, cookie) => {
   if (!(type(cookie) == 'String')) {
-    throw new TypeError('"cookie" must be a string!')
+    throw new TypeError('"cookie" must be a String!')
   }
 
-  return keys.map((key) => Object.fromEntries(parseCookie(cookie))[key])
+  var cookies = Object.fromEntries(parseCookie(cookie))
+
+  switch (Array.isArray(keys)) {
+    case true:
+      if (
+        !keys.every((key) =>
+          ['Symbol', 'String', 'Number', 'Boolean'].some(
+            (value) => type(key) == value
+          )
+        )
+      ) {
+        throw new TypeError('"keys" must be a sequence<USVString>')
+      }
+
+      return keys.map((key) => cookies[key])
+
+    case false:
+      if (!(type(keys) == 'String')) {
+        throw new TypeError('"keys" must be a USVString')
+      }
+
+      return cookies[keys]
+  }
 }
 
 /**
