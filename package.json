@@ -1,0 +1,12 @@
+{
+  "name": "cookies",
+  "version": "1.0.0",
+  "main": "source/index.js",
+  "keywords": [
+    "javascript",
+    "cookie"
+  ],
+  "author": "yurkimus <yurkimus@gmail.com>",
+  "license": "ISC",
+  "description": "Utilities to work with cookies"
+}
