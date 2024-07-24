@@ -8,7 +8,7 @@
  *  type(async () => {}) // returns 'AsyncFunction'
  *  type(new URLSearchParams()) // returns 'URLSearchParams'
  */
-export var type = (value) => Object.prototype.toString.call(value).slice(8, -1)
+var type = (value) => Object.prototype.toString.call(value).slice(8, -1)
 
 /**
  * Parses a cookie string into a list of key-value pairs.
