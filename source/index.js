@@ -1,14 +1,4 @@
-/**
- * Gets the type of a value as a string.
- *
- * @returns {string}
- *
- * @example
- *  type('Hello!') // returns 'String'
- *  type(async () => {}) // returns 'AsyncFunction'
- *  type(new URLSearchParams()) // returns 'URLSearchParams'
- */
-var type = (value) => Object.prototype.toString.call(value).slice(8, -1)
+import { is } from '@yurkimus/types'
 
 /**
  * Parses a cookie string into a list of key-value pairs.
@@ -24,7 +14,7 @@ var type = (value) => Object.prototype.toString.call(value).slice(8, -1)
  * ```
  */
 export var parseCookie = (cookie) => {
-  if (!(type(cookie) == 'String')) {
+  if (!is('String', cookie)) {
     throw new TypeError('"cookie" must be a string!')
   }
 
@@ -47,7 +37,7 @@ export var parseCookie = (cookie) => {
  * ```
  */
 export var readCookie = (keys, cookie) => {
-  if (!(type(cookie) == 'String')) {
+  if (!is('String', cookie)) {
     throw new TypeError('"cookie" must be a String!')
   }
 
@@ -57,8 +47,8 @@ export var readCookie = (keys, cookie) => {
     case true:
       if (
         !keys.every((key) =>
-          ['Symbol', 'String', 'Number', 'Boolean'].some(
-            (value) => type(key) == value
+          ['Symbol', 'String', 'Number', 'Boolean'].some((value) =>
+            is(value, key)
           )
         )
       ) {
@@ -68,7 +58,7 @@ export var readCookie = (keys, cookie) => {
       return keys.map((key) => cookies[key])
 
     case false:
-      if (!(type(keys) == 'String')) {
+      if (!is('String', keys)) {
         throw new TypeError('"keys" must be a USVString')
       }
 

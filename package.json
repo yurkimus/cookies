@@ -1,12 +1,9 @@
 {
-  "name": "cookies",
-  "version": "1.0.0",
-  "main": "source/index.js",
-  "keywords": [
-    "javascript",
-    "cookie"
-  ],
-  "author": "yurkimus <yurkimus@gmail.com>",
-  "license": "ISC",
-  "description": "Utilities to work with cookies"
+  "type": "module",
+  "name": "@yurkimus/cookies",
+  "version": "0.1.1",
+  "exports": "./source/index.js",
+  "dependencies": {
+    "@yurkimus/types": "github:yurkimus/types"
+  }
 }
