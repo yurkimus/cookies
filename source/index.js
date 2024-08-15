@@ -1,4 +1,4 @@
-import { is } from '@yurkimus/types'
+import { is, isLike } from '@yurkimus/types'
 
 /**
  * Parses a cookie string into a list of key-value pairs.
@@ -43,27 +43,11 @@ export var readCookie = (keys, cookie) => {
 
   var cookies = Object.fromEntries(parseCookie(cookie))
 
-  switch (Array.isArray(keys)) {
-    case true:
-      if (
-        !keys.every((key) =>
-          ['Symbol', 'String', 'Number', 'Boolean'].some((value) =>
-            is(value, key)
-          )
-        )
-      ) {
-        throw new TypeError('"keys" must be a sequence<USVString>')
-      }
-
-      return keys.map((key) => cookies[key])
-
-    case false:
-      if (!is('String', keys)) {
-        throw new TypeError('"keys" must be a USVString')
-      }
-
-      return cookies[keys]
+  if (isLike('Array')) {
+    return Array.prototype.map.call(keys, (key) => cookies[key])
   }
+
+  return cookies[keys]
 }
 
 /**
@@ -72,7 +56,6 @@ export var readCookie = (keys, cookie) => {
  * @param {string} name The name of the cookie.
  * @param {string} value The value of the cookie.
  * @param {[string, string][]} attributes An array containing additional attributes for the cookie.
- *
  *
  * @example
  * ```
@@ -88,5 +71,5 @@ export var serializeCookie = (name, value, attributes) =>
   value +
   attributes.reduce(
     (string, attribute) => string + '; ' + attribute.join('='),
-    ''
+    '',
   )

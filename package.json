@@ -1,9 +1,17 @@
 {
   "type": "module",
+  "version": "0.0.0",
   "name": "@yurkimus/cookies",
-  "version": "0.1.2",
+  "author": {
+    "name": "yurkimus",
+    "email": "yurkimus@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yurkimus/cookies.git"
+  },
   "exports": "./source/index.js",
   "dependencies": {
-    "@yurkimus/types": "github:yurkimus/types"
+    "@yurkimus/types": "@yurkimus/types"
   }
 }
