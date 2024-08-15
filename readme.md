@@ -1,33 +1,63 @@
 # Cookies
 
-A collection of utilities for handling cookies in JavaScript.
+JavaScript-utilities to handle cookies everywhere.
 
-## parseCookie
+## Table of Contents
 
-Parses a cookie string into a list of key-value pairs.
+- [Installation](#installation)
+- [Exports](#exports)
+  - [parseCookie](#parseCookie)
+  - [readCookie](#readCookie)
+  - [serializeCookie](#serializeCookie)
+- [License](#license)
 
-| Parameter | Type     | Description   |
-| --------- | -------- | ------------- |
-| cookie    | `string` | Cookie string |
+## Installation
 
-**Returns**: `[string, string][]`
+### npm
 
-**Example**:
+```
+npm install @yurkimus/cookies
+```
+
+### urls
+
+```
+"@yurkimus/cookies": "npm:@yurkimus/cookies"
+```
+
+```
+"@yurkimus/cookies": "github:yurkimus/cookies"
+```
+
+```
+"@yurkimus/cookies": "https://raw.githubusercontent.com/yurkimus/cookies/main/source/index.js"
+```
+
+## Exports
+
+### parseCookie
+
+#### Definition
+
+```
+parseCookie :: string -> *
+```
+
+#### Example
 
 ```javascript
 parseCookie('name=John; age=30; role=admin') // => [['name', 'John'], ['age', '30'], ['role', 'admin']]
 ```
 
-## readCookie
+### readCookie
 
-Reads cookies from a cookie string using a provided list of keys.
+#### Definition
 
-| Parameter | Type                   | Description                  |
-| --------- | ---------------------- | ---------------------------- |
-| keys      | `string` or `string[]` | List of keys or a single key |
-| cookie    | `string`               | Cookie string                |
+```
+readCookie :: * -> string -> *
+```
 
-**Example**:
+#### Example
 
 ```javascript
 let cookie = 'name=John; age=30; role=admin'
@@ -37,17 +67,15 @@ readCookie('age', cookie) // => '30'
 readCookie(['age', 'name'], cookie) // => ['30', 'John']
 ```
 
-## serializeCookie
+### serializeCookie
 
-Serializes a cookie from its components into a string.
+#### Definition
 
-| Parameter  | Type                 | Description                                              |
-| ---------- | -------------------- | -------------------------------------------------------- |
-| name       | `string`             | The name of the cookie                                   |
-| value      | `string`             | The value of the cookie                                  |
-| attributes | `[string, string][]` | An array containing additional attributes for the cookie |
+```
+serializeCookie :: string -> * -> [(string, string)] -> string
+```
 
-**Example**:
+#### Example
 
 ```javascript
 let attributes = [
@@ -57,3 +85,7 @@ let attributes = [
 
 serializeCookie('name', 'John', attributes) // => 'name=John; path=/; expires=Wed, 21 Oct 2026 07:28:00 GMT'
 ```
+
+## License
+
+[MIT](LICENSE)
