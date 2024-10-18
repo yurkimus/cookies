@@ -6,9 +6,9 @@ JavaScript-utilities to handle cookies everywhere.
 
 - [Installation](#installation)
 - [Exports](#exports)
-  - [parseCookie](#parseCookie)
-  - [readCookie](#readCookie)
-  - [serializeCookie](#serializeCookie)
+  - [parse](#parse)
+  - [read](#read)
+  - [serialize](#serialize)
 - [License](#license)
 
 ## Installation
@@ -35,26 +35,12 @@ npm install @yurkimus/cookies
 
 ## Exports
 
-### parseCookie
+### read
 
 #### Definition
 
 ```
-parseCookie :: string -> *
-```
-
-#### Example
-
-```javascript
-parseCookie('name=John; age=30; role=admin') // => [['name', 'John'], ['age', '30'], ['role', 'admin']]
-```
-
-### readCookie
-
-#### Definition
-
-```
-readCookie :: * -> string -> *
+read :: string -> string -> string
 ```
 
 #### Example
@@ -62,17 +48,33 @@ readCookie :: * -> string -> *
 ```javascript
 let cookie = 'name=John; age=30; role=admin'
 
-readCookie('age', cookie) // => '30'
+let age = read('age', cookie) // => '30'
 
-readCookie(['age', 'name'], cookie) // => ['30', 'John']
+let [age, name] = ['age', 'name']
+  .map(key => read(key))
+  .map(reader => reader(cookie)) // => ['30', 'John']
 ```
 
-### serializeCookie
+### parse
 
 #### Definition
 
 ```
-serializeCookie :: string -> * -> [(string, string)] -> string
+parse :: string -> object
+```
+
+#### Example
+
+```javascript
+parse('name=John; age=30; role=admin') // => { name: 'John', age: '30', role: 'admin' }
+```
+
+### serialize
+
+#### Definition
+
+```
+serialize :: string -> * -> [(string, string)] -> string
 ```
 
 #### Example
@@ -83,7 +85,7 @@ let attributes = [
   ['expires', 'Wed, 21 Oct 2026 07:28:00 GMT'],
 ]
 
-serializeCookie('name', 'John', attributes) // => 'name=John; path=/; expires=Wed, 21 Oct 2026 07:28:00 GMT'
+serialize('name', 'John', attributes) // => 'name=John; path=/; expires=Wed, 21 Oct 2026 07:28:00 GMT'
 ```
 
 ## License
