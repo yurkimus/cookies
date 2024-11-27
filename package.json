@@ -2,7 +2,7 @@
   "type": "module",
 
   "name": "@yurkimus/cookies",
-  "version": "0.0.3",
+  "version": "0.0.4",
 
   "author": "yurkimus <yurkimus@gmail.com>",
 
@@ -14,7 +14,7 @@
   "exports": "./source/index.js",
 
   "dependencies": {
-    "@yurkimus/types": "github:yurkimus/types",
-    "@yurkimus/curry": "github:yurkimus/curry"
+    "@yurkimus/types": "npm:@yurkimus/types",
+    "@yurkimus/curry": "npm:@yurkimus/curry"
   }
 }
