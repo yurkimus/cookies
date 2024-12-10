@@ -1,8 +1,12 @@
 {
-  "version": "0.0.6",
+  "name": "@yurkimus/cookies",
+
+  "version": "0.0.7",
+
+  "exports": "./source/index.js",
 
   "imports": {
-    "@yurkimus/curry": "npm:@yurkimus/curry@0.0.9",
+    "@yurkimus/curry": "npm:@yurkimus/curry@0.1.0",
     "@yurkimus/types": "npm:@yurkimus/types@0.2.1"
   }
 }
