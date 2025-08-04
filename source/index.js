@@ -1,43 +1,36 @@
-import { curry } from '@yurkimus/curry'
-import { is } from '@yurkimus/types'
-
 /**
  * Parses a cookie string into a list of key-value pairs.
+ *
+ * @param {*} source
+ *
+ * @returns {Record<string, string | undefined>}
+ *
+ * @throws {TypeError} When 'source' is not a 'string'
  */
-export let parse = source => {
-  if (!is('String', source))
-    throw new TypeError(`Parameter 'source' must be a string.`)
+export var parseCookies = source => {
+  if (typeof source !== 'string')
+    throw TypeError(`Parameter 'source' must be a 'string'.`)
 
-  return source
-    .split('; ')
-    .map(string => string.split('='))
-    .reduce((object, [key, value]) => (object[key] = value, object), {})
+  if (source === '')
+    return {}
+  else
+    return source
+      .split('; ')
+      .map(string => string.split('='))
+      .reduce((object, [key, value]) => (object[key] = value, object), {})
 }
 
 /**
  * Reads cookies from a cookie string using a provided list of keys.
- */
-export let read = curry((key, source) => {
-  if (!is('String', source))
-    throw new TypeError(`Parameter 'source' must be a string.`)
-
-  return parse(source)[key]
-})
-
-/**
- * Serializes a cookie from its components into a string.
  *
- * @example
- * ```
- * let  name = 'name',
- *      value = 'John',
- *      attributes = [['path', '/'], ['expires', 'Wed, 21 Oct 2026 07:28:00 GMT']],
- *      serialized = serialize(name, value, attributes); // => 'name=John; path=/; expires=Wed, 21 Oct 2026 07:28:00 GMT'
- * ```
+ * @param {string} name
+ * @param {*} source
+ *
+ * @throws {TypeError} When 'source' is not a 'string'
  */
-export let serialize = curry((name, value, attributes) =>
-  name
-  + '='
-  + value
-  + attributes.reduce((string, attribute) => string + '; ' + attribute.join('='), '')
-)
+export var readCookie = (name, source) => {
+  if (typeof source !== 'string')
+    throw TypeError(`Parameter 'source' must be a 'string'.`)
+
+  return parseCookies(source)[name]
+}
